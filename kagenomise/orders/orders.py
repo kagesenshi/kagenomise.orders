@@ -10,6 +10,7 @@ from zope.intid.interfaces import IIntIds
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 import datetime
+from Products.CMFCore.interfaces import IContentish
 
 class Orders(grok.Adapter):
     grok.implements(IOrderManager)
