@@ -4,5 +4,4 @@ from kagenomise.orders.interfaces import IOrderManager
 
 def handle_checkout(event):
     site = getSite()
-
     IOrderManager(site).new_from_cart(event.data)

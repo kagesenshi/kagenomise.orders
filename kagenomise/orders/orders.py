@@ -84,3 +84,14 @@ class Orders(grok.Adapter):
         obj.reindexObject()
 
         return obj
+
+
+class DefaultOrderTitle(grok.Adapter):
+    grok.context(IContentish)
+    grok.implements(IOrderTitle)
+
+    def __init__(self, context):
+        self.context = context
+
+    def getTitle(self, data):
+        return self.context.Title()
