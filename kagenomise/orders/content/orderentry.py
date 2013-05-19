@@ -23,22 +23,23 @@ from kagenomise.orders import MessageFactory as _
 
 # Interface class; used to define content-type schema.
 
-class IOrder(form.Schema, IImageScaleTraversable):
+class IOrderEntry(form.Schema, IImageScaleTraversable):
     """
     
     """
-    recipient_name = schema.TextLine(
-        title=_(u'Recipient Name'),
+
+    item_reference = RelationChoice(
+        title=_(u'Item'),
+        source=ObjPathSourceBinder(),
+        required=False
     )
 
-    shipping_address = schema.Text(
-        title=_(u'Shipping Address'),
+    unit_price = schema.Float(
+        title=_(u'Unit Price'),
+        default=0.0
     )
 
-    recipient_email = schema.TextLine(
-        title=_(u'Recipient Email'),
-    )
-
-    recipient_phone = schema.TextLine(
-        title=_(u'Recipient Phone'),
+    quantity = schema.Int(
+        title=_(u'Quantity'),
+        default=0
     )

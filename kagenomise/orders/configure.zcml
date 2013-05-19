@@ -16,6 +16,9 @@
     <include package=".behavior"/>
     <include package=".portlet"/>
 
+    <subscriber handler=".checkout.handle_checkout"
+        for="kagenomise.cart.interfaces.ICheckoutEvent"/>
+
     <!-- -*- extra stuff goes here -*- -->
 
 </configure>

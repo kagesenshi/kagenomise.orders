@@ -1,24 +1,22 @@
 <?xml version="1.0"?>
-<object name="kagenomise.orders.order"
+<object name="kagenomise.orders.orderentry"
    meta_type="Dexterity FTI"
    i18n:domain="kagenomise.orders" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic metadata -->
-  <property name="title" i18n:translate="">Order</property>
+  <property name="title" i18n:translate="">OrderEntry</property>
   <property name="description"
     i18n:translate=""></property>
-  <property name="icon_expr">string:${portal_url}/folder_icon.png</property>
-  <property name="factory">kagenomise.orders.order</property>
-  <property name="global_allow">True</property>
+  <property name="icon_expr">string:${portal_url}/document_icon.png</property>
+  <property name="factory">kagenomise.orders.orderentry</property>
+  <property name="global_allow">False</property>
   <property name="filter_content_types">False</property>  
-  <property name="allowed_content_types">
-      <element value="kagenomise.orders.orderentry"/>
-  </property>
+  <property name="allowed_content_types" />
   <property name="allow_discussion">False</property>
 
   <!-- schema and class used for content items -->
-  <property name="schema">kagenomise.orders.content.order.IOrder</property> 
-  <property name="klass">plone.dexterity.content.Container</property>
+  <property name="schema">kagenomise.orders.content.orderentry.IOrderEntry</property> 
+  <property name="klass">plone.dexterity.content.Item</property>
   <property name="behaviors">
      <element value="plone.app.content.interfaces.INameFromTitle" />
      <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>

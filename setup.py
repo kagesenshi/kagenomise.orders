@@ -33,6 +33,7 @@ setup(name='kagenomise.orders',
           'collective.dexteritytextindexer',
           'plone.app.multilingual',
           'plone.multilingualbehavior',
+          'kagenomise.cart'
           # -*- Extra requirements: -*-
       ],
       extras_require={
