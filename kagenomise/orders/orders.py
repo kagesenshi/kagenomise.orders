@@ -80,7 +80,7 @@ class Orders(grok.Adapter):
         obj.setTitle(title)
 
         intids = getUtility(IIntIds)
-        obj.item_ref = RelationValue(intids.queryId(item_ref))
+        obj.item_reference = RelationValue(intids.queryId(item_ref))
 
         obj.reindexObject()
 
