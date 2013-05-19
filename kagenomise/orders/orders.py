@@ -44,7 +44,7 @@ class Orders(grok.Adapter):
         orders._delObject(tempid, suppress_events=True)
         orders._setObject(oid, order, set_owner=0, suppress_events=True)
         
-        order.setTitle(oid)
+        order.setTitle(title)
 
         for k in ['recipient_name','shipping_address','recipient_email',
                 'recipient_phone']:
