@@ -1,4 +1,5 @@
-from kagenomise.orders.interfaces import IOrderTitle, IOrderManager
+from kagenomise.orders.interfaces import IOrderManager
+from kagenomise.cart.interfaces import IItemTitle
 from zope.component.hooks import getSite
 from zope.container.interfaces import INameChooser
 from Products.CMFPlone.utils import _createObjectByType
@@ -59,10 +60,15 @@ class Orders(grok.Adapter):
             self._add_item(order, item)
 
     def _add_item(self, order, item):
-        item_ref = self.context.unrestrictedTraverse(str(item['path']))
 
-        title = IOrderTitle(item_ref).getTitle(item)
-
+        item_ref = None
+        if item.get('path', None):
+            item_ref = self.context.restrictedTraverse(str(item['path']))
+            title = IItemTitle(item_ref).getTitle(item)
+        elif item['meta_type'] == 'shipment':
+            title = item['name']
+        else:
+            raise Exception(u'Invalid data')
 
         tempid = str(time.time())
         obj = _createObjectByType('kagenomise.orders.orderentry',
@@ -75,7 +81,11 @@ class Orders(grok.Adapter):
         order._delObject(tempid, suppress_events=True)
         order._setObject(oid, obj, set_owner=0, suppress_events=True)
 
-        obj.unit_price = item_ref.price
+        if item_ref:
+            obj.unit_price = item_ref.price
+        else:
+            obj.unit_price = item['price']
+
         obj.quantity = item['quantity']
         obj.setTitle(title)
 
@@ -85,14 +95,3 @@ class Orders(grok.Adapter):
         obj.reindexObject()
 
         return obj
-
-
-class DefaultOrderTitle(grok.Adapter):
-    grok.context(IContentish)
-    grok.implements(IOrderTitle)
-
-    def __init__(self, context):
-        self.context = context
-
-    def getTitle(self, data):
-        return self.context.Title()

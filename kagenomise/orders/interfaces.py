@@ -5,7 +5,3 @@ class IProductSpecific(Interface):
 
 class IOrderManager(Interface):
     pass
-
-class IOrderTitle(Interface):
-    pass
-
