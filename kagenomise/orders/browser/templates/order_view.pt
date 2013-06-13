@@ -37,10 +37,33 @@
     </fieldset>
 
     <fieldset id="folder-listing">
-        <legend>Contents</legend>
-        <tal:block define="listing_macro context/folder_listing/macros/listing">
-            <metal:use_macro use-macro="listing_macro" />
-        </tal:block>
+        <legend>Items</legend>
+
+        <table class="listing" style="width:100%"
+            tal:define="global total_price python:0">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr tal:repeat="item view/items">
+                    <td tal:content="item/Title"></td>
+                    <td tal:content="python: '%.2f' % item.unit_price"></td>
+                    <td tal:content="item/quantity"></td>
+                    <td tal:content="python: '%.2f' % (item.unit_price * item.quantity)"></td>
+                    <tal:block define="global total_price python:total_price + (item.unit_price * item.quantity)"/>
+                </tr>
+                <tr>
+                    <th colspan="3">&nbsp;</th>
+                    <th tal:content="python: '%.2f' % total_price"></th>
+                </tr>
+            </tbody>
+        </table>
+
     </fieldset>
 
   </metal:content-core>
